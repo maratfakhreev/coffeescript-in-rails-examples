@@ -7,8 +7,6 @@
 #= require jquery
 #= require jquery_ujs
 #= require foundation
-#= require current_user
-#= require counter
 #= require skim
 #= require_tree ../templates
 #= require_tree .

@@ -1,24 +1,33 @@
 class Counter
   constructor: (@$el) ->
-    @$counterDisplay = @$el.find(".counter__value")
-    @$counterButton = @$el.find(".counter__button")
-    @$counterDisplay.text(0)
+    @_bindUi()
     @_bindEvents()
+    @ui.display.text(0)
+
+  _bindUi: ->
+    @ui =
+      display: @$el.find(".counter__value")
+      button: @$el.find(".counter__button")
 
   _bindEvents: ->
-    @$counterButton.on "click", @_changeCounter
+    @ui.button.on "click", @_changeCounter
 
   _changeCounter: (event) =>
-    buttonIndex = $(event.currentTarget).index()
-    value = parseInt(@$counterDisplay.text())
-    value += if buttonIndex then 1 else -1
+    $button = $(event.currentTarget)
+    value = parseInt(@ui.display.text())
+    value = @_calcValue($button, value)
     @_changeCounterValue(value)
     @_changeDecadesValue(value)
 
   _changeCounterValue: (value) ->
-    @$counterDisplay.text(value)
+    @ui.display.text(value)
 
   _changeDecadesValue: (value) ->
     $(document).trigger("app:counter:change", [value, "wow, it changes"])
+
+  _calcValue: ($button, value) ->
+    value += 1 if $button.hasClass('counter__button--increase')
+    value -= 1 if $button.hasClass('counter__button--decrease')
+    value
 
 counter = new Counter($(".counter"))
