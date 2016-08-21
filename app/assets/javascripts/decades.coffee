@@ -1,4 +1,6 @@
-class Decades
+App.Components ||= {}
+
+class App.Components.Decades
   constructor: (@$el) ->
     @_bindUi()
     @_bindEvents()
@@ -16,4 +18,4 @@ class Decades
     @ui.count.text(decade)
     console.log(text)
 
-decades = new Decades($(".decades"))
+decades = new App.Components.Decades($(".decades"))

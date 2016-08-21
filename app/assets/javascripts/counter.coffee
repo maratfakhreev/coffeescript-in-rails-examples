@@ -1,4 +1,6 @@
-class Counter
+App.Components ||= {}
+
+class App.Components.Counter
   constructor: (@$el) ->
     @_bindUi()
     @_bindEvents()
@@ -30,4 +32,4 @@ class Counter
     value -= 1 if $button.hasClass('counter__button--decrease')
     value
 
-counter = new Counter($(".counter"))
+counter = new App.Components.Counter($(".counter"))
