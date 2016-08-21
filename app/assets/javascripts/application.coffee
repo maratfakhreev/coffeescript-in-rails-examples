@@ -13,3 +13,23 @@
 #= require_tree .
 
 $(document).foundation()
+
+$ ->
+  $(".counter__value").text(0)
+  $(".decades__count").text(0)
+
+  renderDozens = (value) ->
+    decade = Math.floor(value / 10)
+    $(".decades__count").text(decade)
+
+  $(".counter__button").eq(0).on "click", ->
+    value = $(".counter__value").text()
+    counterValue = parseInt(value) - 1
+    $(".counter__value").text(counterValue)
+    renderDozens(counterValue)
+
+  $(".counter__button").eq(1).on "click", ->
+    value = $(".counter__value").text()
+    counterValue = parseInt(value) + 1
+    $(".counter__value").text(counterValue)
+    renderDozens(counterValue)
