@@ -15,21 +15,30 @@
 $(document).foundation()
 
 $ ->
-  $(".counter__value").text(0)
   $(".decades__count").text(0)
 
-  renderDozens = (value) ->
+class Counter
+  constructor: (@$el) ->
+    @$counterDisplay = @$el.find(".counter__value")
+    @$counterButton = @$el.find(".counter__button")
+    @$counterDisplay.text(0)
+    @_bindEvents()
+
+  _bindEvents: ->
+    @$counterButton.on "click", @_changeCounter
+
+  _changeCounter: (event) =>
+    buttonIndex = $(event.currentTarget).index()
+    value = parseInt(@$counterDisplay.text())
+    value += if buttonIndex then 1 else -1
+    @_changeCounterValue(value)
+    @_changeDecadesValue(value)
+
+  _changeCounterValue: (value) ->
+    @$counterDisplay.text(value)
+
+  _changeDecadesValue: (value) ->
     decade = Math.floor(value / 10)
     $(".decades__count").text(decade)
 
-  $(".counter__button").eq(0).on "click", ->
-    value = $(".counter__value").text()
-    counterValue = parseInt(value) - 1
-    $(".counter__value").text(counterValue)
-    renderDozens(counterValue)
-
-  $(".counter__button").eq(1).on "click", ->
-    value = $(".counter__value").text()
-    counterValue = parseInt(value) + 1
-    $(".counter__value").text(counterValue)
-    renderDozens(counterValue)
+counter = new Counter($(".counter"))
