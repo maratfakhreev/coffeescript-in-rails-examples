@@ -8,8 +8,8 @@ class App.Components.Counter
 
   _bindUi: ->
     @ui =
-      display: @$el.find(".counter__value")
-      button: @$el.find(".counter__button")
+      display: @$el.find(".js-value")
+      button: @$el.find(".js-button")
 
   _bindEvents: ->
     @ui.button.on "click", @_changeCounter
@@ -28,8 +28,8 @@ class App.Components.Counter
     $(document).trigger("app:counter:change", [value, "wow, it changes"])
 
   _calcValue: ($button, value) ->
-    value += 1 if $button.hasClass('counter__button--increase')
-    value -= 1 if $button.hasClass('counter__button--decrease')
+    value += 1 if $button.hasClass('js-button--increase')
+    value -= 1 if $button.hasClass('js-button--decrease')
     value
 
-counter = new App.Components.Counter($(".counter"))
+counter = new App.Components.Counter($(".js-counter"))

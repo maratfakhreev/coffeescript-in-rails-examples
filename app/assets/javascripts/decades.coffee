@@ -8,7 +8,7 @@ class App.Components.Decades
 
   _bindUi: ->
     @ui =
-      count: @$el.find(".decades__count")
+      count: @$el.find(".js-decades-count")
 
   _bindEvents: ->
     $(document).on("app:counter:change", @_changeDecades)
@@ -18,4 +18,4 @@ class App.Components.Decades
     @ui.count.text(decade)
     console.log(text)
 
-decades = new App.Components.Decades($(".decades"))
+decades = new App.Components.Decades($(".js-decades"))
