@@ -1,21 +1,34 @@
-App.Components ||= {}
+$.widget("app.decades", {
+  options: {}
 
-class App.Components.Decades
-  constructor: (@$el) ->
+  _create: ->
     @_bindUi()
     @_bindEvents()
     @ui.count.text(0)
 
+  _destroy: ->
+    # calls when $(".decades").decades("destroy") has been called
+    @element.empty()
+    console.log('this widget has been destroyed')
+
+  _setOptions: ->
+    # calls when you set an option on the widget
+
   _bindUi: ->
     @ui =
-      count: @$el.find(".js-decades-count")
+      count: @element.find(".js-decades-count")
 
   _bindEvents: ->
-    $(document).on("app:counter:change", @_changeDecades)
+    @element.on("app:counter:change", (params...) => @_changeDecades(params...))
 
-  _changeDecades: (event, value, text) =>
+  _changeDecades: (event, value, text) ->
     decade = Math.floor(value / 10)
     @ui.count.text(decade)
     console.log(text)
 
-decades = new App.Components.Decades($(".js-decades"))
+  remove: ->
+    this.destroy()
+});
+
+App.decades = $(".js-decades").decades()
+# App.decades.remove()

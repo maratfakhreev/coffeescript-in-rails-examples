@@ -25,7 +25,7 @@ class App.Components.Counter
     @ui.display.text(value)
 
   _changeDecadesValue: (value) ->
-    $(document).trigger("app:counter:change", [value, "wow, it changes"])
+    App.decades.trigger("app:counter:change", [value, "wow, it changes"])
 
   _calcValue: ($button, value) ->
     value += 1 if $button.hasClass('js-button--increase')
