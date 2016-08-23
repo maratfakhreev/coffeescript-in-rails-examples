@@ -10,3 +10,6 @@
 
 ## Branch coffeescript-examples-jquery-widgets
 * Step 6: try jquery widgets as Coffeescript classes alternative
+
+## Branch coffeescript-examples-backbone
+* Step 6: try Backbone.View
