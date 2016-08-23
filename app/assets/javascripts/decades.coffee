@@ -19,7 +19,8 @@ $.widget("app.decades", {
       count: @element.find(".js-decades-count")
 
   _bindEvents: ->
-    @element.on("app:counter:change", (params...) => @_changeDecades(params...))
+    App.counter.on "app:counter:change", (params...) =>
+      @_changeDecades(params...)
 
   _changeDecades: (event, value, text) ->
     decade = Math.floor(value / 10)

@@ -1,20 +1,27 @@
 App.Components ||= {}
 
-class App.Components.Counter
-  constructor: (@$el) ->
+$.widget("app.counter", {
+  options: {}
+
+  _create: ->
     @_bindUi()
     @_bindEvents()
     @ui.display.text(0)
 
+  _destroy: ->
+    # calls when $(".decades").decades("destroy") has been called
+    @element.empty()
+    console.log('this widget has been destroyed')
+
   _bindUi: ->
     @ui =
-      display: @$el.find(".js-value")
-      button: @$el.find(".js-button")
+      display: @element.find(".js-value")
+      button: @element.find(".js-button")
 
   _bindEvents: ->
-    @ui.button.on "click", @_changeCounter
+    @ui.button.on "click", (params...) => @_changeCounter(params...)
 
-  _changeCounter: (event) =>
+  _changeCounter: (event) ->
     $button = $(event.currentTarget)
     value = parseInt(@ui.display.text())
     value = @_calcValue($button, value)
@@ -25,11 +32,13 @@ class App.Components.Counter
     @ui.display.text(value)
 
   _changeDecadesValue: (value) ->
-    App.decades.trigger("app:counter:change", [value, "wow, it changes"])
+    @element.trigger("app:counter:change", [value, "wow, it changes"])
 
   _calcValue: ($button, value) ->
-    value += 1 if $button.hasClass('js-button--increase')
-    value -= 1 if $button.hasClass('js-button--decrease')
+    ++value if $button.hasClass('js-button--increase')
+    --value if $button.hasClass('js-button--decrease')
     value
+})
 
-counter = new App.Components.Counter($(".js-counter"))
+App.counter = $(".js-counter").counter()
+# App.counter.remove()
