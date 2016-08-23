@@ -1,7 +1,7 @@
 App.Components ||= {}
 
-class App.Components.Decades
-  constructor: (@$el) ->
+class App.Components.Decades extends Backbone.View
+  initialize: ->
     @_bindUi()
     @_bindEvents()
     @ui.count.text(0)
@@ -11,11 +11,11 @@ class App.Components.Decades
       count: @$el.find(".js-decades-count")
 
   _bindEvents: ->
-    $(document).on("app:counter:change", @_changeDecades)
+    this.listenTo(App.counter, "app:counter:change", @_changeDecades)
 
-  _changeDecades: (event, value, text) =>
+  _changeDecades: (value, text) =>
     decade = Math.floor(value / 10)
     @ui.count.text(decade)
     console.log(text)
 
-decades = new App.Components.Decades($(".js-decades"))
+App.decades = new App.Components.Decades({ el: $(".js-decades") })

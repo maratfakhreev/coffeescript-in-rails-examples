@@ -11,6 +11,7 @@ gem "coffee-rails"
 gem "foundation-icons-sass-rails"
 gem "foundation-rails"
 gem "jquery-rails"
+gem 'rails-assets-backbone', source: 'https://rails-assets.org'
 gem "sass-rails", "~> 5.0.0"
 gem "skim"
 gem "therubyracer", platforms: :ruby

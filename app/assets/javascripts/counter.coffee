@@ -1,20 +1,18 @@
 App.Components ||= {}
 
-class App.Components.Counter
-  constructor: (@$el) ->
+class App.Components.Counter extends Backbone.View
+  events:
+    "click .js-button": "_changeCounter"
+
+  initialize: ->
     @_bindUi()
-    @_bindEvents()
     @ui.display.text(0)
 
   _bindUi: ->
     @ui =
       display: @$el.find(".js-value")
-      button: @$el.find(".js-button")
 
-  _bindEvents: ->
-    @ui.button.on "click", @_changeCounter
-
-  _changeCounter: (event) =>
+  _changeCounter: (event) ->
     $button = $(event.currentTarget)
     value = parseInt(@ui.display.text())
     value = @_calcValue($button, value)
@@ -25,11 +23,11 @@ class App.Components.Counter
     @ui.display.text(value)
 
   _changeDecadesValue: (value) ->
-    $(document).trigger("app:counter:change", [value, "wow, it changes"])
+    this.trigger("app:counter:change", value, "wow, it changes")
 
   _calcValue: ($button, value) ->
-    value += 1 if $button.hasClass('js-button--increase')
-    value -= 1 if $button.hasClass('js-button--decrease')
+    ++value if $button.hasClass("js-button--increase")
+    --value if $button.hasClass("js-button--decrease")
     value
 
-counter = new App.Components.Counter($(".js-counter"))
+App.counter = new App.Components.Counter({ el: $(".js-counter") })

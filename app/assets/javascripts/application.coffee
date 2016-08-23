@@ -7,6 +7,8 @@
 #= require jquery
 #= require jquery_ujs
 #= require foundation
+#= require underscore
+#= require backbone
 #= require skim
 #= require_tree ../templates
 #= require_tree .
