@@ -1,16 +1,17 @@
-App.Components ||= {}
+App.Views ||= {}
 
-class App.Components.Counter extends Backbone.View
+class App.Views.Counter extends Backbone.View
   events:
-    "click .js-button": "_changeCounter"
+    "click ": "_changeCounter"
 
   initialize: ->
+    console.log(@$el.attributes)
     @_bindUi()
     @ui.display.text(0)
 
   _bindUi: ->
     @ui =
-      display: @$el.find(".js-value")
+      display: @$(".js-value")
 
   _changeCounter: (event) ->
     $button = $(event.currentTarget)
@@ -30,4 +31,4 @@ class App.Components.Counter extends Backbone.View
     --value if $button.hasClass("js-button--decrease")
     value
 
-App.counter = new App.Components.Counter({ el: $(".js-counter") })
+App.counter = new App.Views.Counter({ el: $(".js-counter") })
